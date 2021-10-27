@@ -1,5 +1,10 @@
-# Importando bibliotecas a serem usadas pelo algoritmo
+# Implementação do algoritmo Image Quilting feita por Felipe Oliveira Magno Neves
+# 180016296@aluno.unb.br
+# Universidade de Brasília, 2021/1
 
+# Uso das funções definidas se encontra no final do arquivo
+
+# Importando bibliotecas a serem usadas pelo algoritmo
 import cv2 as cv
 from enum import Enum
 import numpy as np
@@ -8,7 +13,6 @@ import collections
 
 # Enum criado para melhorar organização do código, definindo vertical como índice 0 e 
 # horizontal como índice 1, quando necessário
-
 class Direction(Enum):
     VERTICAL = 0
     HORIZONTAL = 1
@@ -338,8 +342,8 @@ execution = 'texture transfer'
 
 # Código que gera imagens para demonstrar funcionamento básico do algoritmo
 if execution == 'basic example':
-    texture1 = cv.imread("./Testing/Input/noise1.jpg", cv.IMREAD_COLOR)
-    texture2 = cv.imread("./Testing/Input/noise2.png", cv.IMREAD_COLOR)
+    texture1 = cv.imread("./imagensParaTeste/input/noise1.jpg", cv.IMREAD_COLOR)
+    texture2 = cv.imread("./imagensParaTeste/input/noise2.png", cv.IMREAD_COLOR)
     
     fShow([texture1, texture2], 3)
 
@@ -364,7 +368,7 @@ if execution == 'basic example':
 
 # Código que usa o algoritmo no modo de síntese de textura
 if execution == 'texture synthesis':
-    texturePath = "./ComparissonPictures/Input/basket.png"
+    texturePath = "./imagensParaTeste/input/basket.png"
     textureSource = cv.imread(texturePath, cv.IMREAD_COLOR)
     textureSource = cv.resize(textureSource, (int(textureSource.shape[1]), int(textureSource.shape[0])))
 
@@ -397,15 +401,15 @@ if execution == 'texture synthesis':
 
     show(["texture", "output"], [textureSource, canvas], 2)
 
-    cv.imwrite('./Testing/Output/texture_synthesis_' + '_'.join((str(randomness), str(alpha), str(patchSize), str(borderRatio))) + '.png', canvas)
+    cv.imwrite('./imagensParaTeste/output/texture_synthesis_' + '_'.join((str(randomness), str(alpha), str(patchSize), str(borderRatio))) + '.png', canvas)
 
 # Código que usa o algoritmo no modo de transferência de textura
 if execution == 'texture transfer':
-    textureSource = cv.imread("./comparissonPictures/Input/textura.png", cv.IMREAD_COLOR)
+    textureSource = cv.imread("./imagensParaTeste/input/textura.png", cv.IMREAD_COLOR)
 
     textureSource = cv.resize(textureSource, (int(textureSource.shape[1]/2), int(textureSource.shape[0]/2)))
 
-    targetSource = cv.imread("./comparissonPictures/Input/alvo.png", cv.IMREAD_COLOR)
+    targetSource = cv.imread("./imagensParaTeste/input/alvo.png", cv.IMREAD_COLOR)
     targetSource = cv.resize(targetSource, (int(targetSource.shape[1]), int(targetSource.shape[0])))
 
     textureMap =    cv.GaussianBlur(cv.cvtColor(textureSource, cv.COLOR_BGR2GRAY), (11,11), 1)
@@ -446,4 +450,4 @@ if execution == 'texture transfer':
 
         show(["texture", "target", "output"], [textureSource, targetSource, canvas])
 
-    cv.imwrite('./Testing/Output/texture_transfer_' + '_'.join((str(randomness), str(alpha), str(patchSize), str(borderRatio))) + '.png', canvas)
+    cv.imwrite('./imagensParaTeste/output/texture_transfer_' + '_'.join((str(randomness), str(alpha), str(patchSize), str(borderRatio))) + '.png', canvas)

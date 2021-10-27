@@ -1,0 +1,1 @@
+Para execução, favor se assegurar de que o caminho para as imagens a serem usadas está correto.
